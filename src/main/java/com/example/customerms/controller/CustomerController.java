@@ -74,4 +74,18 @@ public class CustomerController {
         }
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomerResponseDTO> deleteCustomer(@PathVariable Long id){
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            customerRepository.delete(customer);
+            CustomerResponseDTO responseDTO = new CustomerResponseDTO(customer);
+            return ResponseEntity.ok(responseDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
