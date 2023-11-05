@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -21,9 +23,11 @@ public class CustomerController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public Stream<CustomerResponseDTO> getAll() {
-        Stream<CustomerResponseDTO> customerList = customerRepository.findAll().stream().map(CustomerResponseDTO::new);
-        return customerList;
+    public ResponseEntity<List<CustomerResponseDTO>> getAll() {
+        List<CustomerResponseDTO> customerList = customerRepository.findAll().stream()
+                .map(CustomerResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(customerList);
     }
 
     @GetMapping("/{id}")
