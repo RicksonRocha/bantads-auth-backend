@@ -53,7 +53,8 @@ public class CustomerController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable Long id, @ModelAttribute CustomerRequestDTO data) {
+    public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable Long id,
+            @ModelAttribute CustomerRequestDTO data) {
         Optional<Customer> existingCustomer = customerRepository.findById(id);
 
         if (existingCustomer.isPresent()) {
@@ -80,7 +81,7 @@ public class CustomerController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> deleteCustomer(@PathVariable Long id){
+    public ResponseEntity<CustomerResponseDTO> deleteCustomer(@PathVariable Long id) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
 
         if (customerOptional.isPresent()) {
